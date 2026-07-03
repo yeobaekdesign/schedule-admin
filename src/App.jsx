@@ -1778,7 +1778,10 @@ function DetailView({ project: p, onEdit, onDelete, onClose }) {
               className="dv-color"
               style={{ backgroundColor: blockColor(p) }}
             />
-            <h2 className="dv-title">{p.name}</h2>
+            <h2 className="dv-title">
+              {p.is_secret && <span title="시크릿 일정">🔒 </span>}
+              {p.name}
+            </h2>
           </div>
 
           <div className="list-group">
@@ -1891,7 +1894,10 @@ function DayListSheet({ day, projects, onClickProject, onReorder, onAddNew, onCl
                     style={{ backgroundColor: blockColor(p) }}
                   />
                   <span className="bs-item-body">
-                    <span className="bs-item-title">{p.name}</span>
+                    <span className="bs-item-title">
+                      {p.is_secret && <span title="시크릿 일정">🔒 </span>}
+                      {p.name}
+                    </span>
                     <span className="bs-item-sub">
                       {p.site_name ? p.site_name + ' · ' : ''}
                       {p.all_day
