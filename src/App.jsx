@@ -268,7 +268,10 @@ const HOLIDAYS = {
 }
 
 // 일정의 블록 색상 = 현장색상 (없으면 기존 color, 그것도 없으면 기본)
-const blockColor = (p) => p.site_color || p.color || DEFAULT_COLOR
+// 저장된 실제 색상 (현장색 → 색상 → 기본색)
+const rawColor = (p) => p.site_color || p.color || DEFAULT_COLOR
+// 표시용 색상: 관리자 앱에서 시크릿 일정은 현장색을 무시하고 검정으로 표시
+const blockColor = (p) => (p.is_secret ? '#1a1a1a' : rawColor(p))
 // 일정이 속한 캘린더(분류) 이름
 const categoryOf = (p) => (p.category || '').trim()
 // 정렬 순서: sort_order(숫자) 우선, 없으면 시작일 → id 순
@@ -402,7 +405,7 @@ function Calendar() {
       name: p.name ?? '',
       category: categoryOf(p),
       site_name: p.site_name ?? '',
-      site_color: blockColor(p),
+      site_color: rawColor(p),
       start_date: p.start_date,
       end_date: p.end_date,
       memo: p.memo ?? '',
