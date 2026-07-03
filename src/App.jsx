@@ -299,7 +299,9 @@ const chipText = (p) => {
   const parts = []
   if (!p.all_day && p.start_time) parts.push(String(p.start_time).slice(0, 5))
   parts.push(p.name)
-  return parts.join(' ')
+  const text = parts.join(' ')
+  // 관리자 앱: 시크릿 일정은 막대 텍스트 앞에 자물쇠 표시
+  return p.is_secret ? `🔒 ${text}` : text
 }
 
 // [gridStart, gridEnd] 범위의 날짜별 일정 맵 생성
